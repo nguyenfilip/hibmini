@@ -1,17 +1,23 @@
 package cz.nguyen.entity;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Company {
@@ -20,46 +26,53 @@ public class Company {
 	@GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id;
-	
-	
+		
 	private String name;
 	
-	@ManyToMany(mappedBy="categories")
-	private Set<Employee> products = new HashSet<Employee>();
 	
-	public void addProduct(Employee product) {
-		this.products.add(product);
-	}
+	@OneToMany(mappedBy = "company")
+	private Set<Employee> employees = new HashSet<>();
+	
+//    @OneToMany()
+//    private List<Building> buildings = new ArrayList<>();
+
+
+//    public void addBuilding(Building b) {
+//        buildings.add(b);
+//    }
 
     
+	public Set<Employee> getEmployees() {
+        return employees;
+    }
 	
+    public void addEmployee(Employee e) {
+        employees.add(e);
+        e.setCompany(this);
+    }
+
 	public String getId() {
         return id;
     }
-
-
-
-    public void setId(String id) {
+	
+	public void setId(String id) {
         this.id = id;
     }
 
-
-
-    public Company() {
+	public Company() {
 	}
 
-	public String getName() {
+	public Company(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Set<Employee> getProducts() {
-		return Collections.unmodifiableSet(products);
-	}
-
 
 	@Override
 	public int hashCode() {
@@ -85,6 +98,12 @@ public class Company {
 			return false;
 		return true;
 	}
+
+    @Override
+    public String toString() {
+        return "Company [name=" + name + "]";
+    }
+
 
 	
 	

@@ -7,7 +7,7 @@
 	    <layout class="org.apache.log4j.PatternLayout">
 	    <!-- %l - for whole logger name -->
 		<param name="ConversionPattern" 
-		  value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+		  value="%t %c{1} - %m%n" />
 	    </layout>
 	</appender>
  
@@ -29,6 +29,14 @@
     </logger>
     
      
+    <logger name="org.hibernate.SQL">
+    	<level value="DEBUG"/>
+    </logger>
+    
+    <logger name="org.hibernate.event.internal.DefaultPersistEventListener">
+    	<level value="TRACE"/>
+    </logger>
+    
 	<root>
 		<level value="INFO" />
 		<appender-ref ref="console" />
