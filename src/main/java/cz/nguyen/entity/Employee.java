@@ -1,17 +1,12 @@
 package cz.nguyen.entity;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Employee {
@@ -24,52 +19,50 @@ public class Employee {
 	@Column(unique=true)
 	private String name;
 	
-	/*
-	 * The day this item has been added to the eshop
-	 */
-	@Temporal(TemporalType.DATE)
-	private java.util.Date addedDate;
+//	@Version
+//	private int serial;
+
+	private int rewardPoints = 0;
 	
-	@ManyToMany
-	private Set<Company> categories = new HashSet<Company>();
-
-
+	
+	@ManyToOne
+	private Company company;
+	
+	public Employee() {
+    }
 
 	
-	public void setId(Long id){
+	public Employee(String name) {
+        this.name = name;
+    }
+
+
+    public int getRewardPoints() {
+        return rewardPoints;
+    }
+
+    public void setRewardPoints(int rewardPoints) {
+        this.rewardPoints = rewardPoints;
+    }
+
+    public void setId(Long id){
 		this.id = id;
 	}
 	
-	public void removeCategory(Company category)
-	{
-		this.categories.remove(category);
-	}
-
-	public Set<Company> getCategories() {
-		return Collections.unmodifiableSet(categories);
-	}
 	
-	public void addCategory(Company c) {
-		categories.add(c);
-		c.addProduct(this);
-	}
 
 
-	public java.util.Date getAddedDate() {
-		return addedDate;
-	}
-	public void setAddedDate(java.util.Date addedDate) {
-		this.addedDate = addedDate;
-	}
-	public Employee(Long productId) {
-		this.id = productId;
-	}
-	public Employee() {
-	}
+	public Company getCompany() {
+        return company;
+    }
 
 
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
-	public String getName() {
+
+    public String getName() {
 		return name;
 	}
 
@@ -83,7 +76,13 @@ public class Employee {
 		return id;
 	}
 
+	
 	@Override
+    public String toString() {
+        return "Employee [id=" + id + ", name=" + name + ", rewardPoints=" + rewardPoints + "]";
+    }
+
+    @Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
