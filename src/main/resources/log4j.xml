@@ -19,7 +19,6 @@
  
     <logger name="org.hibernate.tool.hbm2ddl.SchemaExport">
     	<level value="ERROR"/>
-    
     </logger>
     
  
@@ -28,7 +27,11 @@
 
     </logger>
     
-     
+      
+    <logger name="org.hibernate.engine.jdbc.batch.internal">
+    	<level value="TRACE"/>
+    </logger>
+    
     <logger name="org.hibernate.SQL">
     	<level value="DEBUG"/>
     </logger>
