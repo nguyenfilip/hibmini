@@ -4,6 +4,7 @@
 Introduction
  - http://docs.jboss.org/hibernate/orm/5.1/
  - Java Persistence with Hibernate 2nd edition
+ - https://vladmihalcea.com/
  - entity, ORM, JPA vs Hibernate
 
 Entity Manager, Persistence Context and Entity lifecycle
@@ -61,9 +62,12 @@ N+1 problem solutions - Batching and other load strategies
  - subselect, select, join
  - LAZY is recommended strategy
  
-Caching - Second Level Cache
+JDBC batching example 
+
+(branch caching) Caching - Second Level Cache
+ - configuration
+ - statistics
  - entity cache
  - query cache 
  - collection cache
 
-JDBC batching example 
